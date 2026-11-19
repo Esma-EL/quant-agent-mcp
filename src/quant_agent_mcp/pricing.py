@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import math
 
+from scipy.optimize import brentq
 from scipy.stats import norm
 
 OPTION_TYPES = ("call", "put")
@@ -54,3 +55,16 @@ def greeks(S, K, T, r, sigma, q=0.0, option="call"):
                  + r * K * df_r * norm.cdf(-d2) - q * S * df_q * norm.cdf(-d1))
         rho = -K * T * df_r * norm.cdf(-d2)
     return {"delta": delta, "gamma": gamma, "vega": vega, "theta": theta, "rho": rho}
+
+
+def implied_vol(price, S, K, T, r, q=0.0, option="call", lo=1e-6, hi=5.0):
+    """Volatility that reproduces a given option price (Brent's root-finding method)."""
+    _validate(S, K, T, 0.2, option)
+    fwd_s, fwd_k = S * math.exp(-q * T), K * math.exp(-r * T)
+    if option == "call":
+        lower, upper = max(fwd_s - fwd_k, 0.0), fwd_s
+    else:
+        lower, upper = max(fwd_k - fwd_s, 0.0), fwd_k
+    if not lower < price < upper:
+        raise ValueError(f"Price {price} outside no-arbitrage bounds ({lower:.4f}, {upper:.4f}).")
+    return brentq(lambda sig: bs_price(S, K, T, r, sig, q, option) - price, lo, hi, xtol=1e-10)

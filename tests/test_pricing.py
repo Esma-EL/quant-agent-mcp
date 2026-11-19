@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from quant_agent_mcp.pricing import bs_price, greeks
+from quant_agent_mcp.pricing import bs_price, greeks, implied_vol
 
 BASE = {"S": 100.0, "K": 100.0, "T": 1.0, "r": 0.05, "sigma": 0.2}
 
@@ -42,3 +42,22 @@ def test_greeks_match_finite_differences(option):
 def test_invalid_inputs_raise(bad):
     with pytest.raises(ValueError):
         bs_price(**{**BASE, **bad})
+
+@pytest.mark.parametrize("option", ["call", "put"])
+@pytest.mark.parametrize("sigma", [0.05, 0.2, 0.6, 1.5])
+def test_implied_vol_round_trip(option, sigma):
+    price = bs_price(**{**BASE, "sigma": sigma}, option=option)
+    args = {k: v for k, v in BASE.items() if k != "sigma"}
+    assert implied_vol(price, **args, option=option) == pytest.approx(sigma, abs=1e-8)
+
+
+def test_implied_vol_reference():
+    args = {k: v for k, v in BASE.items() if k != "sigma"}
+    assert implied_vol(10.4506, **args, option="call") == pytest.approx(0.2, abs=1e-4)
+
+
+@pytest.mark.parametrize("price", [0.0, 150.0])
+def test_implied_vol_rejects_arbitrage_prices(price):
+    args = {k: v for k, v in BASE.items() if k != "sigma"}
+    with pytest.raises(ValueError):
+        implied_vol(price, **args, option="call")
