@@ -8,10 +8,14 @@ version = "0.1.0"
 description = "Agentic quant assistant: MCP server exposing validated pricing tools"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = ["numpy", "scipy", "mcp"]
+dependencies = ["numpy", "scipy", "mcp>=2,<3"]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff"]
+
+[project.scripts]
+quant-agent-mcp = "quant_agent_mcp.server:main"
+
 
 [tool.setuptools.packages.find]
 where = ["src"]
