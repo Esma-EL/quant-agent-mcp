@@ -5,13 +5,16 @@ import asyncio
 import json
 import os
 import sys
+from pathlib import Path
 
 import anthropic
 from mcp.client import Client
 
+from quant_agent_mcp.guardrails import validate_answer, write_audit
 from quant_agent_mcp.server import mcp
 
 MODEL = os.environ.get("QUANT_AGENT_MODEL", "claude-sonnet-5-5")
+AUDIT_PATH = Path(os.environ.get("QUANT_AGENT_AUDIT", "logs/audit.jsonl"))
 MAX_STEPS = 8
 SYSTEM_PROMPT = """You are a quantitative analyst assistant for a trading desk.
 Rules:
@@ -49,7 +52,7 @@ def result_to_text(result):
     return "\n".join(getattr(part, "text", str(part)) for part in parts)
 
 
-async def run_agent(question, llm=None):
+async def run_agent(question, llm=None, audit_path=None):
     llm = llm or anthropic.AsyncAnthropic()
     trace = []
     async with Client(mcp) as client:
@@ -62,7 +65,11 @@ async def run_agent(question, llm=None):
             messages.append({"role": "assistant", "content": response.content})
             if response.stop_reason != "tool_use":
                 answer = "".join(b.text for b in response.content if b.type == "text")
-                return {"question": question, "answer": answer, "tool_calls": trace}
+                out = {"model": MODEL, "question": question, "answer": answer, "tool_calls": trace}
+                out["validation"] = validate_answer(question, answer, trace)
+                if audit_path:
+                    write_audit(out, audit_path)
+                return out
             results = []
             for block in response.content:
                 if block.type != "tool_use":
@@ -83,6 +90,11 @@ async def run_agent(question, llm=None):
 
 def main() -> None:
     question = " ".join(sys.argv[1:]) or input("Trader request: ")
-    out = asyncio.run(run_agent(question))
+    out = asyncio.run(run_agent(question, audit_path=AUDIT_PATH))
     print(out["answer"])
-    print(f"\n[{len(out['tool_calls'])} tool call(s)]")
+    check = out["validation"]
+    if check["ok"]:
+        print("\n[OK] Every number is traced to a tool result or the request.")
+    else:
+        print(f"\n[WARNING] Unverified numbers: {', '.join(check['unsupported'])}")
+    print(f"[{len(out['tool_calls'])} tool call(s) | audit log: {AUDIT_PATH}]")

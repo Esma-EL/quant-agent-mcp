@@ -45,4 +45,14 @@ def test_agent_reports_tool_errors_to_the_model():
     ])
     out = asyncio.run(run_agent("Price with S=-1", llm=llm))
     assert out["tool_calls"][0]["is_error"]
-    
+
+def test_agent_validates_answer_and_writes_audit(tmp_path):
+    tool_use = NS(type="tool_use", id="t1", name="price_option", input=ATM_CALL)
+    llm = FakeLLM([
+        NS(stop_reason="tool_use", content=[tool_use]),
+        NS(stop_reason="end_turn", content=[NS(type="text", text="Worth 10.45, not 99.9.")]),
+    ])
+    audit = tmp_path / "audit.jsonl"
+    out = asyncio.run(run_agent("Price a 1y ATM call", llm=llm, audit_path=audit))
+    assert out["validation"] == {"ok": False, "unsupported": ["99.9"]}
+    assert audit.exists()
