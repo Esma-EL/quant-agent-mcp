@@ -1,4 +1,5 @@
 # Quant Agent MCP
+![CI](https://github.com/Esma-EL/quant-agent-mcp/actions/workflows/ci.yml/badge.svg)
 
 Agentic quant assistant: an MCP server exposes deterministic pricing tools
 (Black-Scholes, Greeks, implied volatility, yield curve) and an agent answers
