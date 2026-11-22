@@ -43,3 +43,13 @@ def test_audit_log_appends_json_lines(tmp_path):
     lines = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
     assert [entry["question"] for entry in lines] == ["q1", "q2"]
     assert "timestamp" in lines[0]
+
+
+
+
+def test_unicode_minus_and_list_markers():
+    assert extract_numbers("1. Delta is \u22120.5609") == [(-0.5609, 4, False)]
+
+
+def test_zero_is_always_allowed():
+    assert validate_answer(QUESTION, "Dividend yield q = 0.", TRACE)["ok"]

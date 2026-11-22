@@ -6,15 +6,19 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-NUMBER = re.compile(r"(?<![\w.])-?\d+(?:,\d{3})*(?:\.\d+)?%?")
+NUMBER = re.compile(r"(?<![\w.])[-\u2212]?\d+(?:,\d{3})*(?:\.\d+)?%?")
+LIST_MARKER = re.compile(r"(?m)^\s*\d+\.\s")
 
 
 def extract_numbers(text):
-    """Numbers found in a text, as (value, number of decimals, is_percent)."""
+    """Numbers found in a text, as (value, number of decimals, is_percent).
+
+    Handles the Unicode minus sign and ignores numbered-list markers ("1. ", "2. ").
+    """
     found = []
-    for token in NUMBER.findall(text or ""):
+    for token in NUMBER.findall(LIST_MARKER.sub(" ", text or "")):
         is_percent = token.endswith("%")
-        raw = token.rstrip("%").replace(",", "")
+        raw = token.rstrip("%").replace(",", "").replace("\u2212", "-")
         decimals = len(raw.split(".")[1]) if "." in raw else 0
         found.append((float(raw), decimals, is_percent))
     return found
@@ -41,7 +45,7 @@ def _collect(obj, out):
 
 def allowed_numbers(question, tool_calls):
     """Numbers the answer is allowed to contain: from the request or from tool calls."""
-    allowed = []
+    allowed = [0.0]  # zero is always allowed (e.g. default dividend yield q = 0)
     for value, _, is_percent in extract_numbers(question):
         allowed.append(value)
         if is_percent:

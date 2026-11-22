@@ -1,0 +1,151 @@
+[
+  {
+    "id": "atm_call_price",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ]
+  },
+  {
+    "id": "atm_put_price",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ]
+  },
+  {
+    "id": "otm_call_6m",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ]
+  },
+  {
+    "id": "call_with_dividend",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ]
+  },
+  {
+    "id": "call_delta_gamma",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "option_greeks"
+    ]
+  },
+  {
+    "id": "put_price_and_delta",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option",
+      "option_greeks"
+    ]
+  },
+  {
+    "id": "implied_vol_call",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "implied_volatility"
+    ]
+  },
+  {
+    "id": "implied_vol_put",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "implied_volatility"
+    ]
+  },
+  {
+    "id": "curve_discount_factor",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "yield_curve"
+    ]
+  },
+  {
+    "id": "curve_zero_rate",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "yield_curve"
+    ]
+  },
+  {
+    "id": "missing_volatility",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_tool_call": true,
+      "asks_for_input": true
+    },
+    "tools": []
+  },
+  {
+    "id": "negative_spot",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_successful_call": true
+    },
+    "tools": []
+  },
+  {
+    "id": "arbitrage_price",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_successful_call": true
+    },
+    "tools": []
+  }
+]

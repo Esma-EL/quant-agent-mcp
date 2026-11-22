@@ -16,6 +16,7 @@ dev = ["pytest", "ruff"]
 [project.scripts]
 quant-agent-mcp = "quant_agent_mcp.server:main"
 quant-agent = "quant_agent_mcp.agent:main"
+quant-agent-eval = "quant_agent_mcp.evals:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
