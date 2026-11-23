@@ -1,6 +1,8 @@
 import math
 
-from quant_agent_mcp.evals import CASES, answer_contains, score_case
+import pytest
+
+from quant_agent_mcp.evals import CASES, answer_contains, closest_error, score_case, write_report
 
 OK = {"ok": True, "unsupported": []}
 
@@ -37,3 +39,24 @@ def test_score_refuse_case():
     out = {"answer": "Spot must be positive.", "validation": OK,
            "tool_calls": [{"tool": "price_option", "is_error": True}]}
     assert score_case(case, out)["passed"]
+
+
+
+
+
+def test_closest_error():
+    assert closest_error("Price is 10.45.", 10.4506) == pytest.approx(0.0006)
+    assert closest_error("No numbers here.", 1.0) is None
+
+
+def test_report_has_summary_and_categories(tmp_path):
+    rows = [
+        {"id": "a", "category": "Pricing", "passed": True, "tools": ["price_option"],
+         "checks": {"grounded": True, "right_tools": True}, "max_abs_error": 0.0006, "run": 1},
+        {"id": "b", "category": "Safety", "passed": False, "tools": [],
+         "checks": {"grounded": False}, "max_abs_error": None, "run": 1},
+    ]
+    assert write_report(rows, tmp_path) == 1
+    report = (tmp_path / "results.md").read_text(encoding="utf-8")
+    assert "Overall pass rate | 1/2 (50%)" in report
+    assert "| Pricing | 1 | 1/1 (100%) | 6.0e-04 |" in report

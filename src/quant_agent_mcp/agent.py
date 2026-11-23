@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
 import sys
 from pathlib import Path
@@ -90,6 +91,7 @@ async def run_agent(question, llm=None, audit_path=None):
 
 
 def main() -> None:
+    logging.getLogger("httpx").setLevel(logging.WARNING)
     question = " ".join(sys.argv[1:]) or input("Trader request: ")
     out = asyncio.run(run_agent(question, audit_path=AUDIT_PATH))
     print(out["answer"])

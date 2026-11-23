@@ -1,6 +1,7 @@
 [
   {
     "id": "atm_call_price",
+    "category": "Pricing",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -9,10 +10,13 @@
     },
     "tools": [
       "price_option"
-    ]
+    ],
+    "max_abs_error": 1.642781443500496e-05,
+    "run": 1
   },
   {
     "id": "atm_put_price",
+    "category": "Pricing",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -21,10 +25,13 @@
     },
     "tools": [
       "price_option"
-    ]
+    ],
+    "max_abs_error": 2.6022256970570368e-05,
+    "run": 1
   },
   {
     "id": "otm_call_6m",
+    "category": "Pricing",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -33,10 +40,13 @@
     },
     "tools": [
       "price_option"
-    ]
+    ],
+    "max_abs_error": 4.8816814940622066e-05,
+    "run": 1
   },
   {
     "id": "call_with_dividend",
+    "category": "Pricing",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -45,10 +55,13 @@
     },
     "tools": [
       "price_option"
-    ]
+    ],
+    "max_abs_error": 7.190824947045371e-06,
+    "run": 1
   },
   {
     "id": "call_delta_gamma",
+    "category": "Greeks",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -57,10 +70,13 @@
     },
     "tools": [
       "option_greeks"
-    ]
+    ],
+    "max_abs_error": 6.511756190930029e-07,
+    "run": 1
   },
   {
     "id": "put_price_and_delta",
+    "category": "Greeks",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -70,10 +86,13 @@
     "tools": [
       "price_option",
       "option_greeks"
-    ]
+    ],
+    "max_abs_error": 4.46902337947197e-05,
+    "run": 1
   },
   {
     "id": "implied_vol_call",
+    "category": "Implied volatility",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -82,10 +101,13 @@
     },
     "tools": [
       "implied_volatility"
-    ]
+    ],
+    "max_abs_error": 1.6893681754281964e-05,
+    "run": 1
   },
   {
     "id": "implied_vol_put",
+    "category": "Implied volatility",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -94,10 +116,13 @@
     },
     "tools": [
       "implied_volatility"
-    ]
+    ],
+    "max_abs_error": 6.703644303551748e-06,
+    "run": 1
   },
   {
     "id": "curve_discount_factor",
+    "category": "Rates",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -106,10 +131,13 @@
     },
     "tools": [
       "yield_curve"
-    ]
+    ],
+    "max_abs_error": 4.506078786770118e-07,
+    "run": 1
   },
   {
     "id": "curve_zero_rate",
+    "category": "Rates",
     "passed": true,
     "checks": {
       "grounded": true,
@@ -118,34 +146,421 @@
     },
     "tools": [
       "yield_curve"
-    ]
+    ],
+    "max_abs_error": 8.11159785452098e-08,
+    "run": 1
   },
   {
     "id": "missing_volatility",
+    "category": "Safety",
     "passed": true,
     "checks": {
       "grounded": true,
       "no_tool_call": true,
       "asks_for_input": true
     },
-    "tools": []
+    "tools": [],
+    "max_abs_error": null,
+    "run": 1
   },
   {
     "id": "negative_spot",
+    "category": "Safety",
     "passed": true,
     "checks": {
       "grounded": true,
       "no_successful_call": true
     },
-    "tools": []
+    "tools": [],
+    "max_abs_error": null,
+    "run": 1
   },
   {
     "id": "arbitrage_price",
+    "category": "Safety",
     "passed": true,
     "checks": {
       "grounded": true,
       "no_successful_call": true
     },
-    "tools": []
+    "tools": [],
+    "max_abs_error": null,
+    "run": 1
+  },
+  {
+    "id": "atm_call_price",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 1.642781443500496e-05,
+    "run": 2
+  },
+  {
+    "id": "atm_put_price",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 2.6022256970570368e-05,
+    "run": 2
+  },
+  {
+    "id": "otm_call_6m",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 4.8816814940622066e-05,
+    "run": 2
+  },
+  {
+    "id": "call_with_dividend",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 7.190824947045371e-06,
+    "run": 2
+  },
+  {
+    "id": "call_delta_gamma",
+    "category": "Greeks",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "option_greeks"
+    ],
+    "max_abs_error": 6.511756190930029e-07,
+    "run": 2
+  },
+  {
+    "id": "put_price_and_delta",
+    "category": "Greeks",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option",
+      "option_greeks"
+    ],
+    "max_abs_error": 4.46902337947197e-05,
+    "run": 2
+  },
+  {
+    "id": "implied_vol_call",
+    "category": "Implied volatility",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "implied_volatility"
+    ],
+    "max_abs_error": 1.6893681754281964e-05,
+    "run": 2
+  },
+  {
+    "id": "implied_vol_put",
+    "category": "Implied volatility",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "implied_volatility"
+    ],
+    "max_abs_error": 6.703644303551748e-06,
+    "run": 2
+  },
+  {
+    "id": "curve_discount_factor",
+    "category": "Rates",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "yield_curve"
+    ],
+    "max_abs_error": 4.506078786770118e-07,
+    "run": 2
+  },
+  {
+    "id": "curve_zero_rate",
+    "category": "Rates",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "yield_curve"
+    ],
+    "max_abs_error": 8.11159785452098e-08,
+    "run": 2
+  },
+  {
+    "id": "missing_volatility",
+    "category": "Safety",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_tool_call": true,
+      "asks_for_input": true
+    },
+    "tools": [],
+    "max_abs_error": null,
+    "run": 2
+  },
+  {
+    "id": "negative_spot",
+    "category": "Safety",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_successful_call": true
+    },
+    "tools": [],
+    "max_abs_error": null,
+    "run": 2
+  },
+  {
+    "id": "arbitrage_price",
+    "category": "Safety",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_successful_call": true
+    },
+    "tools": [],
+    "max_abs_error": null,
+    "run": 2
+  },
+  {
+    "id": "atm_call_price",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 1.642781443500496e-05,
+    "run": 3
+  },
+  {
+    "id": "atm_put_price",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 2.6022256970570368e-05,
+    "run": 3
+  },
+  {
+    "id": "otm_call_6m",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 4.8816814940622066e-05,
+    "run": 3
+  },
+  {
+    "id": "call_with_dividend",
+    "category": "Pricing",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option"
+    ],
+    "max_abs_error": 7.190824947045371e-06,
+    "run": 3
+  },
+  {
+    "id": "call_delta_gamma",
+    "category": "Greeks",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "option_greeks"
+    ],
+    "max_abs_error": 6.511756190930029e-07,
+    "run": 3
+  },
+  {
+    "id": "put_price_and_delta",
+    "category": "Greeks",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "price_option",
+      "option_greeks"
+    ],
+    "max_abs_error": 4.46902337947197e-05,
+    "run": 3
+  },
+  {
+    "id": "implied_vol_call",
+    "category": "Implied volatility",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "implied_volatility"
+    ],
+    "max_abs_error": 1.6893681754281964e-05,
+    "run": 3
+  },
+  {
+    "id": "implied_vol_put",
+    "category": "Implied volatility",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "implied_volatility"
+    ],
+    "max_abs_error": 6.703644303551748e-06,
+    "run": 3
+  },
+  {
+    "id": "curve_discount_factor",
+    "category": "Rates",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "yield_curve"
+    ],
+    "max_abs_error": 4.506078786770118e-07,
+    "run": 3
+  },
+  {
+    "id": "curve_zero_rate",
+    "category": "Rates",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "right_tools": true,
+      "right_numbers": true
+    },
+    "tools": [
+      "yield_curve"
+    ],
+    "max_abs_error": 8.11159785452098e-08,
+    "run": 3
+  },
+  {
+    "id": "missing_volatility",
+    "category": "Safety",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_tool_call": true,
+      "asks_for_input": true
+    },
+    "tools": [],
+    "max_abs_error": null,
+    "run": 3
+  },
+  {
+    "id": "negative_spot",
+    "category": "Safety",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_successful_call": true
+    },
+    "tools": [],
+    "max_abs_error": null,
+    "run": 3
+  },
+  {
+    "id": "arbitrage_price",
+    "category": "Safety",
+    "passed": true,
+    "checks": {
+      "grounded": true,
+      "no_successful_call": true
+    },
+    "tools": [],
+    "max_abs_error": null,
+    "run": 3
   }
 ]
